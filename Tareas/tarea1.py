@@ -16,46 +16,30 @@ Del mismo modo, un total de $1.25 puede formarse usando cinco u ocho monedas, pe
 Su programa debe recibir como entrada el importe en dólares y el número de monedas que el usuario desea utilizar. Luego, debe mostrar un mensaje claro indicando si es posible formar la cantidad especificada con el número de monedas indicado. Para este problema, asume que tienes monedas de 25, 10, 5 y 1 centavos. La solución debe implementarse utilizando recursividad y no debe incluir ningún tipo de ciclo.
 """
 
-def puede_formar_monto(monedas, n_monedas, monto):
-    logging.info("Recursividadddddddddd")
-    logging.info(monedas)
-    logging.info(n_monedas)
-    logging.info(monto)
-    # Caso base: Si se han utilizado el número exacto de monedas y el monto es 0
-    if monto == 0 and n_monedas == 0:
+def puede_formar_monto(monedas, num_monedas, monto):
+    
+    print("Recursividadddddddddd\n")
+    print(f"num monedas: {num_monedas}")
+    print(f"monto: {monto}")
+
+    if monto == 0 and num_monedas == 0:
         return True
-    # Caso base: Si ya no hay monedas disponibles o el monto es negativo
-    if n_monedas == 0 or monto < 0:
+    
+    if num_monedas == 0 or monto < 0:
         return False
     
     # Para cada tipo de moneda, intenta restar su valor y llama recursivamente
-    if puede_formar_monto(monedas, n_monedas - 1, monto - monedas[0]):
+    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[0]): # 25
         return True
-    if puede_formar_monto(monedas, n_monedas - 1, monto - monedas[1]):
+    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[1]): # 10
         return True
-    if puede_formar_monto(monedas, n_monedas - 1, monto - monedas[2]):
+    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[2]): # 5
         return True
-    if puede_formar_monto(monedas, n_monedas - 1, monto - monedas[3]):
+    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[3]): # 1
         return True
     
     return False
 
-def puede_formar_monto_con_monedas(n_monedas, monto_dolares):
-    # Convertir monto en dólares a centavos
-    monto_centavos = int(monto_dolares * 100)
-    # Monedas disponibles en centavos
-    monedas = [25, 10, 5, 1]
-    
-    return puede_formar_monto(monedas, n_monedas, monto_centavos)
-
-"""# Ejemplo de uso
-n_monedas = int(input("Introduce el número de monedas: "))
-monto_dolares = float(input("Introduce el monto en dólares: "))
-
-if puede_formar_monto_con_monedas(n_monedas, monto_dolares):
-    print(f"Es posible formar ${monto_dolares:.2f} con {n_monedas} monedas.")
-else:
-    print(f"No es posible formar ${monto_dolares:.2f} con {n_monedas} monedas.")"""
 
 def estandarizar_valores(valor):
     return valor * 100
