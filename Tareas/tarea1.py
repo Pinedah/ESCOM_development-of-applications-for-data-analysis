@@ -32,12 +32,16 @@ def puede_formar_monto(monedas, num_monedas, monto):
     
     # Para cada tipo de moneda, intenta restar su valor y llama recursivamente
     if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[0]): # 25
+        print("Lo logro con 25 xd")
         return True
     if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[1]): # 10
+        print("Lo logro con 10 xd")
         return True
     if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[2]): # 5
+        print("Lo logro con 5 xd")
         return True
     if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[3]): # 1
+        print("Lo logro con 1 xd")
         return True
     
     return False
