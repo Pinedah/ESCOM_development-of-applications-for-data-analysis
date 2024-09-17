@@ -1,7 +1,7 @@
 #! python3
 # Tarea 1
 
-import logging
+import logging, time
 logging.basicConfig(level = logging.DEBUG, format = '%(asctime)s -  %(levelname)s -   %(message)s')
 logging.disable(logging.DEBUG)
 
