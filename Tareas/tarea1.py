@@ -60,16 +60,16 @@ def main():
             print("!!! Por favor ingrese un valor válido.\n")
 
     puede = False 
-    # monedas = PosibleCambio(a,importe, num_monedas)
+
     monedas = [25, 10, 5, 1]
     importe = estandarizar_valores(importe)
 
     puede = puede_formar_monto(monedas, num_monedas, importe)
 
     if puede:
-        print(f"Es posible formar ¢{importe/100} con {num_monedas} monedas")
+        print(f"Es posible formar ${importe/100} con {num_monedas} monedas")
     else:
-        print(f"NO es posible formar ¢{importe/100} con {num_monedas} monedas")
+        print(f"NO es posible formar ${importe/100} con {num_monedas} monedas")
 
 if __name__ == '__main__':
     main()
