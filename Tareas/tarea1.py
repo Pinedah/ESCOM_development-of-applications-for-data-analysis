@@ -18,6 +18,8 @@ Su programa debe recibir como entrada el importe en dólares y el número de mon
 
 def puede_formar_monto(monedas, num_monedas, monto):
     
+    time.sleep(1)
+
     print("Recursividadddddddddd\n")
     print(f"num monedas: {num_monedas}")
     print(f"monto: {monto}")
