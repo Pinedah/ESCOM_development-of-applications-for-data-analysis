@@ -53,11 +53,11 @@ def estandarizar_valores(valor):
 def main():
     while True:
         try:
-            importe = float(input("Ingrese el importe (en dls): $"))
-            num_monedas = int(input("Ingrese la cantidad de monedas: "))
+            importe = float(input("Ingrese el importe (en dls):\t$"))
+            num_monedas = int(input("Ingrese la cantidad de monedas:\t"))
             break
         except ValueError:
-            print("!!! Por favor ingrese un valor válido.\n")
+            print("ERROR. Por favor ingrese un valor válido.\n")
 
     puede = False 
 
