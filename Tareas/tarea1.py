@@ -53,7 +53,7 @@ def estandarizar_valores(valor):
 def main():
     while True:
         try:
-            importe = float(input("Ingrese el importe (en dls):\t$"))
+            importe = float(input("\nIngrese el importe (en dls):\t$"))
             num_monedas = int(input("Ingrese la cantidad de monedas:\t"))
             break
         except ValueError:
@@ -67,9 +67,9 @@ def main():
     puede = puede_formar_monto(monedas, num_monedas, importe)
 
     if puede:
-        print(f"Es posible formar ${importe/100} con {num_monedas} monedas")
+        print(f"\nEs posible formar ${importe/100} con {num_monedas} monedas")
     else:
-        print(f"NO es posible formar ${importe/100} con {num_monedas} monedas")
+        print(f"\nNO es posible formar ${importe/100} con {num_monedas} monedas")
 
 if __name__ == '__main__':
     main()
