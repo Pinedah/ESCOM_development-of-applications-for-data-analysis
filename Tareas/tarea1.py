@@ -1,75 +1,39 @@
 #! python3
-# Tarea 1
 
-import logging, time
-logging.basicConfig(level = logging.DEBUG, format = '%(asctime)s -  %(levelname)s -   %(message)s')
-logging.disable(logging.DEBUG)
+# TODO: el problema no lo dice, pero podriamos encontrar la lista de que monedas ocupar cuando sea el caso
 
-
-"""
-Desarrolla un programa que determine si es posible construir una cantidad exacta de dinero utilizando un número específico de monedas. Por ejemplo:
-
-Es posible obtener un total de $1.00 usando cuatro monedas si todas son de 25 centavos.
-Sin embargo, no es posible obtener un total de $1.00 con cinco monedas.
-Por otro lado, es posible formar $1.00 con seis monedas si se utilizan tres de 25 centavos, dos de 10 centavos, y una de 5 centavos.
-Del mismo modo, un total de $1.25 puede formarse usando cinco u ocho monedas, pero no se puede lograr usando cuatro, seis, o siete monedas.
-Su programa debe recibir como entrada el importe en dólares y el número de monedas que el usuario desea utilizar. Luego, debe mostrar un mensaje claro indicando si es posible formar la cantidad especificada con el número de monedas indicado. Para este problema, asume que tienes monedas de 25, 10, 5 y 1 centavos. La solución debe implementarse utilizando recursividad y no debe incluir ningún tipo de ciclo.
-"""
-
-def puede_formar_monto(monedas, num_monedas, monto):
-    
-    time.sleep(1)
-
-    print("Recursividadddddddddd\n")
-    print(f"num monedas: {num_monedas}")
-    print(f"monto: {monto}")
-
-    if monto == 0 and num_monedas == 0:
+def PosibleCambio(monedas, importe, num_monedas, index = 0, memo = None):
+    if memo is None:
+        memo = {}
+    if importe == 0 and num_monedas == 0:
         return True
-    
-    if num_monedas == 0 or monto < 0:
+    if importe < 0 or num_monedas < 0 or index >= len(monedas):
         return False
-    
-    # Para cada tipo de moneda, intenta restar su valor y llama recursivamente
-    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[0]): # 25
-        print("Lo logro con 25 xd")
-        return True
-    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[1]): # 10
-        print("Lo logro con 10 xd")
-        return True
-    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[2]): # 5
-        print("Lo logro con 5 xd")
-        return True
-    if puede_formar_monto(monedas, num_monedas - 1, monto - monedas[3]): # 1
-        print("Lo logro con 1 xd")
-        return True
-    
-    return False
+    if (importe, num_monedas, index) in memo:
+        return memo[(importe, num_monedas, index)]
+    usar_moneda = PosibleCambio(monedas, importe - monedas[index], num_monedas - 1, index, memo)
 
+    no_usar_moneda = PosibleCambio(monedas, importe, num_monedas, index + 1, memo)
 
-def estandarizar_valores(valor):
-    return valor * 100
+    memo[(importe, num_monedas, index)] = usar_moneda or no_usar_moneda
+    return memo[(importe, num_monedas, index)]
 
 def main():
-    while True:
-        try:
-            importe = float(input("\nIngrese el importe (en dls):\t$"))
-            num_monedas = int(input("Ingrese la cantidad de monedas:\t"))
-            break
-        except ValueError:
-            print("ERROR. Por favor ingrese un valor válido.\n")
+  tiposDeMonedas = [1,5,10,25]
+  while True:
+      try:
+          importe = int(input("Ingrese el importe (en centavos): ¢"))
+          num_monedas = int(input("Ingrese la cantidad de monedas: "))
+          break
+      except ValueError:
+          print("!!! Por favor ingrese un valor válido.\n")
 
-    puede = False 
-
-    monedas = [25, 10, 5, 1]
-    importe = estandarizar_valores(importe)
-
-    puede = puede_formar_monto(monedas, num_monedas, importe)
-
-    if puede:
-        print(f"\nEs posible formar ${importe/100} con {num_monedas} monedas")
-    else:
-        print(f"\nNO es posible formar ${importe/100} con {num_monedas} monedas")
+  monedas = PosibleCambio(tiposDeMonedas, importe, num_monedas)
+  if monedas:
+    print(f"Es posible formar ¢{importe} con {num_monedas} monedas")
+  else:
+    print(f"NO es posible formar ¢{importe} con {num_monedas} monedas")
 
 if __name__ == '__main__':
     main()
+    
