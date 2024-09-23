@@ -21,6 +21,15 @@ class Person:
         else:
             print("tall enough.")
 
+
+class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+estudiante = Persona("Juan", 20)
+print(estudiante.nombre, estudiante.edad)
+"""
 # Create an instance of the Person class
 person1 = Person("Alice", 30, 150)
 person1.display_info()  
@@ -31,3 +40,4 @@ person2 = Person("Panke", 19, 161)
 person2.display_info()
 person2.have_birthday()
 person2.check_heigth()
+"""
