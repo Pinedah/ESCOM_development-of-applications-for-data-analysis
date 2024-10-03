@@ -9,31 +9,36 @@ import logging
 logging.basicConfig(level = logging.DEBUG, format = '%(asctime)s -  %(levelname)s -   %(message)s')
 # logging.disable(logging.CRITICAL)
 
+def main():
 
-frame = pd.read_csv('dataSets/MBA.csv')
+    file = input("Ingresa el nombre del archivo a convertir (CSV): ")
 
-frame.to_json('dsMBA/MBA.json', orient='records')
-logging.info("JSON")
+    dataframe = pd.read_csv(f'dataSets/{file}.csv')
 
-frame.to_hdf('dsMBA/MBA.h5', key='frame', mode='w', format='table')
-logging.info("hdf")
+    dataframe.to_json(f'ds{file}/{file}.json', orient='records')
+    logging.info("JSON convertido")
 
-#frame.to_xml('dsMBA/MBA.json', orient='records')
-frame.to_excel('dsMBA/MBA.xlsx', index=None, header=True)
-logging.info("excel")
+    dataframe.to_hdf(f'ds{file}/{file}.h5', key='dataframe', mode='w', format='table')
+    logging.info("HDF5 convertido")
 
-frame.to_csv('dsMBA/MBA.tsv', sep='\t', index=False)
-logging.info("tsv")
+    dataframe.to_excel(f'ds{file}/{file}.xlsx', index=None, header=True)
+    logging.info("Excel convertido")
 
-# Crear el elemento raíz
-root = ET.Element('root')
+    dataframe.to_csv(f'ds{file}/{file}.tsv', sep='\t', index=False)
+    logging.info("TSV convertido")
 
-# Iterar sobre cada fila del DataFrame y construir la estructura XML
-for _, row in frame.iterrows():
-    entry = ET.SubElement(root, 'entry')  # Crear un subelemento para cada fila
-    for col in frame.columns:
-        child = ET.SubElement(entry, col)  # Crear un subelemento para cada columna
-        child.text = str(row[col])  # Asignar el valor de la celda como texto del elemento
+    # Crear el elemento raíz
+    root = ET.Element('root')
+    # Iterar sobre cada fila del DataFrame y construir la estructura XML
+    for _, row in dataframe.iterrows():
+        entry = ET.SubElement(root, 'entry')  # Crear un subelemento para cada fila
+        for col in dataframe.columns:
+            child = ET.SubElement(entry, col)  # Crear un subelemento para cada columna
+            child.text = str(row[col])  # Asignar el valor de la celda como texto del elemento
+    tree = ET.ElementTree(root)
+    tree.write(f'ds{file}/{file}.xml')  
+    logging.info("XML convertido")
 
-tree = ET.ElementTree(root)
-tree.write('MBA.xml')  # Guardar el archivo con el nombre 'dataset_converted.xml'
+
+if __name__ == '__main__':
+    main()
