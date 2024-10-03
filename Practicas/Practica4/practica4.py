@@ -11,6 +11,15 @@ logging.basicConfig(level = logging.DEBUG, format = '%(asctime)s -  %(levelname)
 
 def main():
 
+    # TODO: convertir a cada formato
+    """
+        tsv -> pandas
+        hdf5 -> h5py
+        excel -> openpyxl
+        xml -> xml
+        json -> json
+    """
+
     file = input("Ingresa el nombre del archivo a convertir (CSV): ")
 
     dataframe = pd.read_csv(f'dataSets/{file}.csv')
@@ -18,7 +27,7 @@ def main():
     dataframe.to_json(f'ds{file}/{file}.json', orient='records')
     logging.info("JSON convertido")
 
-    dataframe.to_hdf(f'ds{file}/{file}.h5', key='dataframe', mode='w', format='table')
+    #dataframe.to_hdf(f'ds{file}/{file}.h5', key='dataframe', mode='w', format='table')
     logging.info("HDF5 convertido")
 
     dataframe.to_excel(f'ds{file}/{file}.xlsx', index=None, header=True)
