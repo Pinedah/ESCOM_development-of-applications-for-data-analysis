@@ -27,7 +27,7 @@ def main():
     dataframe.to_json(f'ds{file}/{file}.json', orient='records')
     logging.info("JSON convertido")
 
-    #dataframe.to_hdf(f'ds{file}/{file}.h5', key='dataframe', mode='w', format='table')
+    dataframe.to_hdf(f'ds{file}/{file}.h5', key='dataframe', mode='w', format='table')
     logging.info("HDF5 convertido")
 
     dataframe.to_excel(f'ds{file}/{file}.xlsx', index=None, header=True)
