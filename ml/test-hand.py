@@ -4,6 +4,9 @@ import mediapipe as mp
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
+landmark_drawing_spec = mp_drawing.DrawingSpec(color=(255, 255, 255), thickness=5, circle_radius=1)  # Rojo para puntos
+connection_drawing_spec = mp_drawing.DrawingSpec(color=(0, 0, 0), thickness=2, circle_radius=2)  # Verde para conexiones
+
 cap = cv2.VideoCapture(0)
 
 with mp_hands.Hands(
@@ -16,17 +19,18 @@ with mp_hands.Hands(
         if not ret:
             break
         
-        # Convertimos la imagen de BGR a RGB (sin voltear)
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         results = hands.process(frame_rgb)
 
-        # Si se detectan manos, dibujamos las marcas
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
                 mp_drawing.draw_landmarks(
-                    frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                    frame,
+                    hand_landmarks,
+                    mp_hands.HAND_CONNECTIONS,
+                    landmark_drawing_spec,       # Especificación para los puntos
+                    connection_drawing_spec)
 
-        # Mostramos el video en una ventana (sin voltear)
         cv2.imshow("Hand Detection", frame)
 
         # Presiona 'q' para salir
