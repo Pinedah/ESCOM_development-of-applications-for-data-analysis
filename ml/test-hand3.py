@@ -13,7 +13,7 @@ cap = cv2.VideoCapture(0)
 
 # Parámetros personalizables para la ventana de texto
 mensaje = "Gesto Detectado!"
-color_texto = (0, 255, 0)  # Verde
+color_texto = (255, 255, 255)  # blanco
 tamano_texto = 1  # Tamaño de texto
 grosor_texto = 1  # Grosor del texto
 
@@ -33,7 +33,7 @@ with mp_hands.Hands(
         gesture_detected = False  # Reiniciar detección en cada frame
 
         if results.multi_hand_landmarks:
-            # Comprobar si se detectan ambas manos para formar el corazón
+            # Comprobar si se detectan ambas manos para formar el gesto
             if len(results.multi_hand_landmarks) == 2:
                 hand1 = results.multi_hand_landmarks[0]
                 hand2 = results.multi_hand_landmarks[1]
@@ -44,7 +44,7 @@ with mp_hands.Hands(
                 index2 = hand2.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
                 thumb2 = hand2.landmark[mp_hands.HandLandmark.THUMB_TIP]
 
-                # Condiciones para detectar el corazón
+                # Condiciones para detectar el gesto
                 if (abs(index1.x - index2.x) < 0.1 and abs(index1.y - index2.y) < 0.1 and
                     abs(thumb1.x - thumb2.x) < 0.1 and abs(thumb1.y - thumb2.y) < 0.1):
                     gesture_detected = True
